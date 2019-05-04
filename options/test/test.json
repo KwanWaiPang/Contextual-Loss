@@ -1,0 +1,38 @@
+{
+  "name": "SRResNet_bicx4_in3nf64nb16"
+  , "model": "sr" // 'sr' | 'srgan'
+  , "scale": 4
+  , "gpu_ids": [0]
+
+  , "datasets": {
+    "test_1": { // the 1st test dataset
+      "name": "val_set5"
+      , "mode": "LRHR"
+      , "dataroot_HR": "/media/sdc/wlzhang/BasicSR/data/val/Set5"
+      , "dataroot_LR": null
+    }
+    , "test_2": { // the 2nd test dataset
+      "name": "val_set14"
+      , "mode": "LRHR"
+      , "dataroot_HR": "/media/sdc/wlzhang/BasicSR/data/val/Set14_mod"
+      , "dataroot_LR": null
+
+    }
+  }
+
+  , "path": {
+    "root": "/media/sdc/wlzhang/BasicSR"
+    , "pretrain_model_G": "../experiments/000_SRGANx4_DIV2K/models/320000_G.pth"
+    // , "pretrain_model_G": "../experiments/pretrained_models/SRGAN_bicx4_303_505.pth"
+  }
+
+  , "network_G": {
+    "which_model_G": "SRGANModel"
+    , "norm_type": null
+    , "mode": "CNA"
+    , "nf": 64
+    , "nb": 16
+    , "in_nc": 3
+    , "out_nc": 3
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "name": "RANK_ESTIMATOR15_V1" //  please remove "debub_" during formal training
+  ,"use_tb_logger": true
+  ,"model":"rank"
+  ,"scale": 4
+  ,"gpu_ids": [0]
+  ,"datasets": {
+    "train": {
+      "name": "DIV2K"
+      ,"mode": "RANK_IMIM_Pair"
+	  // ,"dataroot_HR": "/media/sdc/wlzhang/data/RANK_DIV2K/DIV2K_train_patch_hr/"
+	  ,"dataroot_LR":null,
+      "dataroot_img1": "/media/sdc/wlzhang/data/RANK_DIV2K_3styleEnhanced1/rankdata/DIV2K_train_patch_esrgan/",
+      "dataroot_img2": "/media/sdc/wlzhang/data/RANK_DIV2K_3styleEnhanced1/rankdata/DIV2K_train_patch_srgan/",
+      "dataroot_img3": "/media/sdc/wlzhang/data/RANK_DIV2K_3styleEnhanced1/rankdata/DIV2K_train_patch_srres/",
+      "dataroot_label_file": "/media/sdc/wlzhang/data/RANK_DIV2K_3styleEnhanced1/rankdata/DIV2K_train_patch_label.txt"
+      ,"subset_file": null
+      ,"use_shuffle": true
+      ,"n_workers": 8
+      ,"batch_size": 16
+      ,"HR_size": 128
+      ,"use_flip": true
+      ,"use_rot": true
+    }
+    , "val": {
+      "name": "val_set5"
+      ,"mode": "RANK_IMIM_Pair"
+	  // ,"dataroot_HR": "/media/sdc/wlzhang/data/RANK_DIV2K/DIV2K_train_patch_hr/"
+	  ,"dataroot_LR":null
+      ,"dataroot_img1": "/media/sdc/wlzhang/data/RANK_DIV2K_3style/DIV2K_valid_patch_all/"    //DIV2K_valid_patch_hrsrres
+	  ,"dataroot_label_file": "/media/sdc/wlzhang/data/RANK_DIV2K_3style/DIV2K_valid_patch_label.txt"  //DIV2K_valid_patch_label
+    } 
+  }
+
+  ,"path": {
+    "root": "/media/sdc/wlzhang/BasicSR",
+    // "pretrain_model_E": "/media/sdc/wlzhang/BasicSR/experiments/pretrained_models/RANK_100.pth",
+    // "pretrain_model_E": "/media/sdc/wlzhang/BasicSR/experiments/RANK_ESTIMATOR_DIV2K_Random_V21/models/700000_E.pth",
+    "experiments_root": "/media/sdc/wlzhang/BasicSR/experiments/RANK_ESTIMATOR15_V1",
+    "models": "/media/sdc/wlzhang/BasicSR/experiments/RANK_ESTIMATOR15_V1/models",
+    "log": "/media/sdc/wlzhang/BasicSR/experiments/RANK_ESTIMATOR15_V1",
+    "val_images": "/media/sdc/wlzhang/BasicSR/experiments/RANK_ESTIMATOR15_V1/val_images"
+  }
+
+  ,"network_G": {
+    "which_model_G": "sr_resnet"
+    ,"norm_type": null
+    ,"mode": "CNA"
+    ,"nf": 64
+    ,"nb": 16
+    ,"in_nc": 3
+    ,"out_nc": 3
+    ,"group": 1
+  }
+  ,"network_D": {
+    "which_model_D": "Discriminaotr_VGG_128_AVGPOOL_Enhanced"
+    ,"norm_type": "batch"
+    ,"act_type": "leakyrelu"
+    ,"mode": "CNA"
+    ,"nf": 64
+    ,"in_nc": 3
+  }
+
+  ,"train": {
+    "lr_E": 1e-4
+    ,"weight_decay_E": 1e-4
+    ,"beta1_G": 0.9
+    ,"lr_D": 1e-4
+    ,"weight_decay_D": 0
+    ,"beta1_D": 0.9
+    ,"lr_scheme": "MultiStepLR"
+    // ,"lr_steps": [50000, 100000, 200000, 300000, 400000]
+    // ,"lr_gamma": 0.5
+    ,"lr_steps": [50000, 100000, 200000, 300000, 400000]
+    ,"lr_gamma": 0.5
+
+    ,"pixel_criterion": "l1"
+    ,"pixel_weight": 1
+    ,"feature_criterion": "l1"
+    ,"feature_weight": 1
+    ,"gan_type": "vanilla"
+    ,"gan_weight": 5e-3
+
+    ,"D_update_ratio": 1
+    ,"D_init_iters": 0
+
+    // ,"gp_weigth": 10 //for wgan-gp
+
+    ,"manual_seed": 0
+    ,"niter": 1000000
+    ,"val_freq": 5000
+  }
+
+  ,"logger": {
+    "print_freq": 200
+    ,"save_checkpoint_freq": 5e3
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "name": "srgan_selfcos_class"  //srgan  srgancx
+  // "name": "srgan_cos"  //srgan  srgancx
+  // , "model": "srgancx" // 'sr' | 'srgan | srgancx'
+  , "model": "srgan" // 'sr' | 'srgan | srgancx'
+  , "scale": 4
+  , "gpu_ids": [4]
+
+  , "datasets": {
+    "test_1": { // the 1st test dataset
+      "name": "val_set5"
+      , "mode": "LRHR"
+      , "dataroot_HR": "/media/sdc/wlzhang/BasicSR/data/val/Set5"
+      // , "dataroot_HR": "/media/sdc/wlzhang/BasicSR/data/samples"
+      , "dataroot_LR": null
+    }
+    , "test_2": { // the 2nd test dataset
+      "name": "val_set14"
+      , "mode": "LRHR"
+      , "dataroot_HR": "/media/sdc/wlzhang/BasicSR/data/val/Set14_mod"
+      , "dataroot_LR": null
+
+    }
+    , "test_3": { // the 3nd test dataset
+      "name": "val_classtest"
+      , "mode": "LRHR"
+      , "dataroot_HR": "/media/sdc/wlzhang/BasicSR/data/val/classtest"
+      , "dataroot_LR": null
+
+    }    
+    , "test_4": { // the 3nd test dataset
+      "name": "val_classpatch"
+      , "mode": "LRHR"
+      , "dataroot_HR": "/media/sdc/wlzhang/BasicSR/data/val/classpatch"
+      , "dataroot_LR": null
+
+    }
+    // , "test_5": { // the 3nd test dataset
+    //   "name": "val_PRIM"
+    //   , "mode": "LRHR"
+    //   , "dataroot_HR": "/media/sdc/wlzhang/BasicSR/data/val/PRIM"
+    //   , "dataroot_LR": null
+
+    // }     
+  }
+
+  , "path": {
+    "root": "/media/sdc/wlzhang/BasicSR"
+    // , "pretrain_model_G": "../experiments/SRGAN_CX_x4_DIV2K/models/220000_G.pth"
+    // , "pretrain_model_G": "../experiments/SRGANx4_DIV2K/models/600000_G.pth"
+    // , "pretrain_model_G": "../experiments/pretrained_models/SRResNet_bicx4_in3nf64nb16.pth"
+    // , "pretrain_model_G": "../experiments/Flip_SRGANx4_DIV2K/models/205000_G.pth"
+    // , "pretrain_model_G": "../experiments/SRGAN_cos/models/420000_G.pth"
+    // , "pretrain_model_G": "../experiments/SRGAN_selfcossloss/models/600000_G.pth"
+    , "pretrain_model_G": "../experiments/SRGAN_selfcos/models/600000_G.pth"
+
+  }
+
+  , "network_G": {
+    "which_model_G": "sr_resnet"
+    , "norm_type": null
+    , "mode": "CNA"
+    , "nf": 64
+    , "nb": 16
+    , "in_nc": 3
+    , "out_nc": 3
+  }
+}
